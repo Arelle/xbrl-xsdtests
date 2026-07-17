@@ -1,8 +1,26 @@
 name: Build
 
 on:
-  workflow_dispatch: # Manual trigger
-  workflow_call: # Reusable by the Release workflow
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Git ref to checkout
+        type: string
+        default: master
+      artifact-name:
+        description: Name for the uploaded build artifact
+        type: string
+        default: build
+  workflow_call:
+    inputs:
+      ref:
+        description: Git ref to checkout
+        type: string
+        default: master
+      artifact-name:
+        description: Name for the uploaded build artifact
+        type: string
+        default: build
 
 jobs:
   build:
@@ -11,7 +29,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: master
+          ref: ${{ inputs.ref }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -31,6 +49,6 @@ jobs:
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: build
+          name: ${{ inputs.artifact-name }}
           path: build.zip
           if-no-files-found: error
