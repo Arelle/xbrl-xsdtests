@@ -1,0 +1,85 @@
+name: Generate Diff
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build-master:
+    name: Build suite (master)
+    uses: ./.github/workflows/build.yml
+    with:
+      ref: master
+      artifact-name: suite-master
+
+  build-pr:
+    name: Build suite (PR merge)
+    uses: ./.github/workflows/build.yml
+    with:
+      ref: refs/pull/${{ github.event.pull_request.number }}/merge
+      artifact-name: suite-pr
+
+  diff:
+    name: Generate suite diff
+    needs: [build-master, build-pr]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download master suite
+        uses: actions/download-artifact@v4
+        with:
+          name: suite-master
+          path: artifacts/master
+
+      - name: Download PR suite
+        uses: actions/download-artifact@v4
+        with:
+          name: suite-pr
+          path: artifacts/pr
+
+      - name: Extract suites
+        run: |
+          mkdir -p suites/master suites/pr
+          unzip -q artifacts/master/build.zip -d suites/master
+          unzip -q artifacts/pr/build.zip -d suites/pr
+
+      - name: Generate diff
+        run: |
+          set +e
+          diff -ruN suites/master suites/pr > suite.diff
+          diff_status=$?
+          set -e
+
+          if [ "$diff_status" -gt 1 ]; then
+            echo "diff failed with exit code $diff_status"
+            exit "$diff_status"
+          fi
+
+          line_count=$(wc -l < suite.diff | tr -d ' ')
+          if [ "$line_count" -eq 0 ]; then
+            echo "No differences between master and PR merge builds."
+          else
+            echo "Generated suite.diff ($line_count lines)."
+          fi
+
+      - name: Write job summary
+        run: |
+          line_count=$(wc -l < suite.diff | tr -d ' ')
+          {
+            echo "## Suite diff"
+            echo
+            if [ "$line_count" -eq 0 ]; then
+              echo "No differences between the master build and the PR merge build."
+            else
+              echo "The PR merge build differs from master ($line_count diff lines)."
+              echo
+              echo "Download the \`suite-diff\` artifact for the full unified diff."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload diff artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: suite-diff
+          path: suite.diff
+          if-no-files-found: error
