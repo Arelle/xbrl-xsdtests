@@ -79,6 +79,15 @@ FIXTURES: dict[str, str] = {
         '<xs:element ref="complexTest"/><xs:element ref="simpleTest"/>'
         "</xs:sequence></xs:complexType></xs:element>"
     ),
+    # IBM/Arelle shape: only the value probe is nested inside a wrapper root.
+    "x/data/ibm-wrapper.xsd": _schema(
+        '<xs:simpleType name="gMin">'
+        '<xs:restriction base="xs:gDay"><xs:minInclusive value="---16+13:00"/>'
+        "</xs:restriction></xs:simpleType>"
+        '<xs:element name="root"><xs:complexType><xs:sequence>'
+        '<xs:element name="elDate" type="gMin" minOccurs="1" maxOccurs="unbounded"/>'
+        "</xs:sequence></xs:complexType></xs:element>"
+    ),
     "x/data/id.xsd": _schema(
         '<xs:element name="t" type="tType"/>'
         '<xs:simpleType name="tType">'
@@ -200,6 +209,15 @@ class TestTranslatableTypes:
             "comp_foo": "xsd:Name",
             "simpleTest": "local:simplefooType",
         }
+
+    def test_ibm_wrapper_finds_nested_local_simpletype(self, extractor: SchemaExtractor) -> None:
+        result = _extract(extractor, "x/data/ibm-wrapper.xsd")
+        assert isinstance(result, ExtractedType)
+        assert result.base_xsd == "gDay"
+        assert result.xbrli_item_type == "gDayItemType"
+        assert result.target_identity == "local:gMin"
+        assert result.facet_set.facets == (("minInclusive", "---16+13:00"),)
+        assert dict(result.element_identities) == {"elDate": "local:gMin"}
 
 
 class TestSkips:

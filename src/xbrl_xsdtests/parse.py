@@ -203,16 +203,19 @@ class SchemaExtractor:
 
         Returns ``(elementName, simpleType)`` — the element's ``name`` is the
         localName of the value-bearing element in the instance (the instance root
-        for root-typed sources like NIST, or a nested probe like Microsoft's
-        ``<simpleTest>``). The name is ``None`` for an anonymous/ref-only element.
+        for root-typed sources like NIST, a top-level probe like Microsoft's
+        ``<simpleTest>``, or a nested leaf like IBM/Arelle ``<elDate>`` inside a
+        wrapper ``<root>`` complexType). Ref-only elements (no ``name``) are skipped.
         """
-        for element in root.findall(f"{{{XSD_NS}}}element"):
-            type_attr = element.get("type")
-            if not type_attr:
+        for element in root.iter(f"{{{XSD_NS}}}element"):
+            name = element.get("name")
+            if not name:
                 continue
-            _uri, local = _resolve_qname(element, type_attr)
-            if local in simple_types:
-                return element.get("name"), simple_types[local]
+            identity = self._element_identity(element, simple_types)
+            if identity is None or not identity.startswith("local:"):
+                continue
+            local_name = identity.split(":", 1)[1]
+            return name, simple_types[local_name]
         return None
 
     @staticmethod
