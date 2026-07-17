@@ -1,0 +1,72 @@
+name: Release
+
+on:
+  workflow_dispatch: # Manual trigger only
+
+# Gives the GHA permission to create a release and upload assets
+permissions:
+  contents: write
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: master
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build
+
+      - name: Check for Changes (Hash Comparison)
+        id: hash_check
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # 1. Calculate the SHA-256 hash of the new build
+          NEW_HASH=$(sha256sum ./build.zip | awk '{print $1}')
+          echo "New build hash: $NEW_HASH"
+          
+          # 2. Try to download the release artifact from the latest release
+          mkdir previous_release || true
+          if gh release download --dir previous_release --pattern "xbrl-xsdtests_*.zip" 2>/dev/null; then
+            PREV_ZIP=$(find previous_release -name 'xbrl-xsdtests_*.zip' -type f | head -1)
+            # 3. Calculate the hash of the previous build
+            OLD_HASH=$(sha256sum "$PREV_ZIP" | awk '{print $1}')
+            echo "Previous build hash: $OLD_HASH"
+            
+            # 4. Compare the hashes
+            if [ "$NEW_HASH" = "$OLD_HASH" ]; then
+              echo "The compiled build is identical to the last release."
+              echo "skip_release=true" >> $GITHUB_OUTPUT
+            else
+              echo "The build has changed!"
+              echo "skip_release=false" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "No previous release artifact found. This is the first release."
+            echo "skip_release=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create GitHub Release
+        # Only run if the hash check says the build changed
+        if: steps.hash_check.outputs.skip_release == 'false'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Generate a unique tag based on the current date and time
+          TAG_NAME="v$(date +'%Y.%m.%d-%H%M')"
+          ARTIFACT_NAME="xbrl-xsdtests_${TAG_NAME//./-}.zip"
+          cp ./build.zip "./$ARTIFACT_NAME"
+          
+          echo "Creating release $TAG_NAME with artifact $ARTIFACT_NAME..."
+          gh release create "$TAG_NAME" "./$ARTIFACT_NAME" \
+            --title "Release $TAG_NAME" \
+            --notes "Automated build and release from master."

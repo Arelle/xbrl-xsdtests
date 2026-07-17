@@ -1,0 +1,20 @@
+# Generated output (regenerate with: python -m xbrl_xsdtests)
+output/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+*.egg
+
+# IDE / editor
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Build
+build.zip

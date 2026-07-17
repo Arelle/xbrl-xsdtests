@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:gen="http://arelle.org/xsts-value-suite/token-0c469a7c" targetNamespace="http://arelle.org/xsts-value-suite/token-0c469a7c" elementFormDefault="qualified">
+  <xsd:import namespace="http://www.xbrl.org/2003/instance" schemaLocation="http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd"/>
+  <xsd:element name="t" id="t" type="gen:tType" substitutionGroup="xbrli:item" xbrli:periodType="instant" abstract="false" nillable="true"/>
+  <xsd:complexType name="tType">
+    <xsd:simpleContent>
+      <xsd:restriction base="xbrli:tokenItemType">
+        <xsd:pattern value="[a-z]+"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+</xsd:schema>
