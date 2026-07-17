@@ -90,6 +90,11 @@ def category(t: ExtractedType) -> str:
     return _sanitize(t.base_xsd)
 
 
+def status_dir(status: str) -> str:
+    """Top-level output bucket: the source instanceTest's XSTS review status."""
+    return _sanitize(status)
+
+
 def variation_id(ref: InstanceTestRef) -> str:
     """Globally-unique, stable, filesystem-safe id for an instanceTest.
 
@@ -104,20 +109,27 @@ def instance_filename(ref: InstanceTestRef) -> str:
 
 
 def instance_path(out: Path, ref: InstanceTestRef, key: TypeKey, t: ExtractedType) -> Path:
-    return out / category(t) / key.value / instance_filename(ref)
+    return out / status_dir(ref.status) / category(t) / key.value / instance_filename(ref)
 
 
 def testcase_filename(key: TypeKey) -> str:
     return f"{key.value}-testcase.xml"
 
 
-def testcase_uri(t: ExtractedType, key: TypeKey) -> str:
-    """Index-relative POSIX path of a testcase file (one per emitted type key)."""
-    return f"{category(t)}/{testcase_filename(key)}"
+def testcase_uri(status: str, t: ExtractedType, key: TypeKey) -> str:
+    """Index-relative POSIX path of a testcase file.
+
+    One per ``(status, category, type key)`` combination: a type key shared by
+    instanceTests carrying different review statuses (e.g. one contributor's
+    ``accepted`` outcome vs. another's ``queried`` one for the same facet
+    signature) is split into one testcase file per status, so every testcase
+    lives wholly beneath its status's top-level directory.
+    """
+    return f"{status_dir(status)}/{category(t)}/{testcase_filename(key)}"
 
 
-def testcase_path(out: Path, t: ExtractedType, key: TypeKey) -> Path:
-    return out / category(t) / testcase_filename(key)
+def testcase_path(out: Path, status: str, t: ExtractedType, key: TypeKey) -> Path:
+    return out / status_dir(status) / category(t) / testcase_filename(key)
 
 
 def _instance_href(ref: InstanceTestRef, key: TypeKey) -> str:
@@ -304,9 +316,10 @@ def _safe_comment(text: str) -> str:
 class IndexEmitter:
     """Accumulates variations and writes the native conformance testcases + index.
 
-    One ``*-testcase.xml`` is written per emitted type key (variations grouped by
-    type, since per-type ≈ per-testGroup). The testcase namespace is
-    ``http://xbrl.org/2005/conformance``; invalid values expect
+    One ``*-testcase.xml`` is written per emitted ``(status, type key)`` pair
+    (variations grouped by type and XSTS review status, since per-type ≈
+    per-testGroup, and status is the output's top-level directory). The testcase
+    namespace is ``http://xbrl.org/2005/conformance``; invalid values expect
     ``<error>xmlSchema:valueError</error>`` and valid values an empty ``<result/>``
     (match-all semantics). ``index.xml`` is written **last** — after every
     referenced testcase file exists — so the harness never hits a dangling
@@ -324,7 +337,7 @@ class IndexEmitter:
 
     def add_variation(self, t: ExtractedType, key: TypeKey, ref: InstanceTestRef) -> None:
         """Register one instanceTest as a variation under its type's testcase."""
-        uri = testcase_uri(t, key)
+        uri = testcase_uri(ref.status, t, key)
         accum = self._testcases.get(uri)
         if accum is None:
             accum = _TestcaseAccum(name=key.value, taxonomy=taxonomy_filename(key))

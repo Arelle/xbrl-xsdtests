@@ -63,6 +63,7 @@ class TestHrefResolution:
         first = next(r for r in parser.iter_instance_tests(source) if isinstance(r, InstanceTestRef))
         assert first.name == "NISTXML-SV-IV-atomic-decimal-minExclusive-1-1"
         assert first.validity == "valid"
+        assert first.status == "accepted"
         assert first.instance_member == (
             "nistData/atomic/decimal/Schema+Instance/"
             "NISTXML-SV-IV-atomic-decimal-minExclusive-1-1.xml"
@@ -72,6 +73,30 @@ class TestHrefResolution:
             "NISTSchema-SV-IV-atomic-decimal-minExclusive-1.xsd"
         )
         assert first.group.source.contributor == "NIST"
+
+
+class TestStatus:
+    def test_status_read_from_current_element(self, root: Path) -> None:
+        # reJ25.i: <current date="2007-01-26" status="queried" .../>
+        source = _by_source()["msMeta/Regex_w3c.xml"]
+        parser = TestSetParser(root)
+        ref = next(
+            r
+            for r in parser.iter_instance_tests(source)
+            if isinstance(r, InstanceTestRef) and r.name == "reJ25.i"
+        )
+        assert ref.status == "queried"
+
+    def test_missing_current_element_defaults_to_unknown(self, root: Path) -> None:
+        # stE096.v carries <expected> but no <current status="..."/> sibling.
+        source = _by_source()["msMeta/SimpleType_w3c.xml"]
+        parser = TestSetParser(root)
+        ref = next(
+            r
+            for r in parser.iter_instance_tests(source)
+            if isinstance(r, InstanceTestRef) and r.name == "stE096.v"
+        )
+        assert ref.status == "unknown"
 
 
 class TestVersionedExpected:

@@ -117,6 +117,17 @@ class TestRefs:
         )
         assert ref.validity == "invalid"
         assert ref.group.source.contributor == "NIST"
+        assert ref.status == "unknown"  # default when not supplied
+
+    def test_instance_test_ref_status_override(self) -> None:
+        ref = InstanceTestRef(
+            group=_group(),
+            name="d-002",
+            instance_member="nistData/atomic/decimal/d-002.xml",
+            validity="valid",
+            status="stable",
+        )
+        assert ref.status == "stable"
 
 
 class TestVariation:

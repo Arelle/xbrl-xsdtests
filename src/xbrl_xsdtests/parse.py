@@ -37,6 +37,8 @@ XSI_NS = "http://www.w3.org/2001/XMLSchema-instance"
 _NIL_TRUE = frozenset({"true", "1"})
 
 _VALIDITIES = frozenset({"valid", "invalid"})
+# Fallback for the (rare) instanceTest with no <current status="..."/> sibling.
+_UNKNOWN_STATUS = "unknown"
 # Facets whose order is semantically relevant and which are kept verbatim/ordered.
 _ENUMERATION = "enumeration"
 _PATTERN = "pattern"
@@ -148,7 +150,15 @@ class TestSetParser:
             name=instance_test.get("name") or "",
             instance_member=_resolve_member(source.member, href),
             validity=validity,  # type: ignore[arg-type]
+            status=self._status(instance_test),
         )
+
+    @staticmethod
+    def _status(instance_test: etree.Element) -> str:
+        """XSTS review status from ``<current status="..."/>``, else ``"unknown"``."""
+        current = instance_test.find(f"{{{TS_NS}}}current")
+        status = current.get("status") if current is not None else None
+        return status or _UNKNOWN_STATUS
 
 
 class SchemaExtractor:

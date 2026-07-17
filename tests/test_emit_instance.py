@@ -32,10 +32,12 @@ def _type(base: str, item: str, numeric: bool) -> ExtractedType:
     )
 
 
-def _ref(group: str, name: str) -> InstanceTestRef:
+def _ref(group: str, name: str, status: str = "unknown") -> InstanceTestRef:
     source = SourceSet(member="x/m.testSet", contributor="NIST", xsd_version="1.0")
     group_ref = TestGroupRef(source=source, name=group, schema_member="x/s.xsd")
-    return InstanceTestRef(group=group_ref, name=name, instance_member="x/i.xml", validity="valid")
+    return InstanceTestRef(
+        group=group_ref, name=name, instance_member="x/i.xml", validity="valid", status=status
+    )
 
 
 # label -> (ref, value, key, type, golden filename)
@@ -158,6 +160,28 @@ class TestSchemaRefResolves:
         resolved = (path.parent / href).resolve()
         assert resolved == (tmp_path / "taxonomies" / taxonomy_filename(key)).resolve()
         assert resolved.name == f"gen-{key.value}.xsd"
+
+
+class TestStatusTopLevelDirectory:
+    def test_instance_written_beneath_status_directory(self, tmp_path: Path) -> None:
+        ref = _ref("atomic-decimal-minExclusive", "NISTXML-d-1-1", status="stable")
+        value = ExtractedValue(text="-998", is_nil=False, extra_nsmap={})
+        path = InstanceEmitter().emit(
+            ref, [value], TypeKey("decimal__minExclusive_-999"), _type("decimal", "decimalItemType", True), tmp_path
+        )
+        assert path.relative_to(tmp_path).parts[0] == "stable"
+
+    def test_schema_ref_still_resolves_from_nested_status_directory(self, tmp_path: Path) -> None:
+        ref = _ref("atomic-decimal-minExclusive", "NISTXML-d-1-1", status="stable")
+        value = ExtractedValue(text="-998", is_nil=False, extra_nsmap={})
+        key = TypeKey("decimal__minExclusive_-999")
+        path = InstanceEmitter().emit(ref, [value], key, _type("decimal", "decimalItemType", True), tmp_path)
+        root = etree.parse(str(path)).getroot()
+        href = root.find("{http://www.xbrl.org/2003/linkbase}schemaRef").get(
+            "{http://www.w3.org/1999/xlink}href"
+        )
+        resolved = (path.parent / href).resolve()
+        assert resolved == (tmp_path / "taxonomies" / taxonomy_filename(key)).resolve()
 
     def test_value_escaping(self, tmp_path: Path) -> None:
         ref = _ref("g", "n")
