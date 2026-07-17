@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ts:testSet
+  xmlns:ts="http://www.w3.org/XML/2004/xml-schema-test-suite/"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  xsi:schemaLocation="http://www.w3.org/XML/2004/xml-schema-test-suite/ ../common/xsts.xsd"
+  name="gregorianTimezoneCompare"
+  contributor="Arelle">
+
+    <ts:annotation>
+        <ts:documentation>Timezone-aware minInclusive facet comparisons for all XSD 1.1 g* types: timezoned vs timezoned and mixed timezoned vs non-timezoned scenarios. Supplements IBM D3_3_11 through D3_3_14 coverage.</ts:documentation>
+    </ts:annotation>
+
+    <ts:testGroup name="gyearmonth-tzcmp-v01" version="1.1">
+        <ts:annotation>
+            <ts:documentation>Valid: timezoned gYearMonth comparison (IBM d3_3_11v01 mirror).</ts:documentation>
+        </ts:annotation>
+        <ts:documentationReference xlink:href="http://www.w3.org/TR/xmlschema11-2/#gYearMonth"/>
+        <ts:documentationReference xlink:href="../common/XSD1_1TestCategories.xml#xsd1_1-DateTimeTypes"/>
+        <ts:schemaTest name="gyearmonth-tzcmp-v01s">
+            <ts:schemaDocument xlink:href="../arelleData/valid/gYearMonthTzCompare/gyearmonth-tzcmp-v01.xsd"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:schemaTest>
+        <ts:instanceTest name="gyearmonth-tzcmp-v01i">
+            <ts:instanceDocument xlink:href="../arelleData/valid/gYearMonthTzCompare/gyearmonth-tzcmp-v01.xml"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:instanceTest>
+    </ts:testGroup>
+
+    <ts:testGroup name="gyearmonth-tzcmp-i01" version="1.1">
+        <ts:annotation>
+            <ts:documentation>Invalid: timezoned gYearMonth comparison.</ts:documentation>
+        </ts:annotation>
+        <ts:documentationReference xlink:href="http://www.w3.org/TR/xmlschema11-2/#gYearMonth"/>
+        <ts:documentationReference xlink:href="../common/XSD1_1TestCategories.xml#xsd1_1-DateTimeTypes"/>
+        <ts:schemaTest name="gyearmonth-tzcmp-i01s">
+            <ts:schemaDocument xlink:href="../arelleData/instance_invalid/gYearMonthTzCompare/gyearmonth-tzcmp-i01.xsd"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:schemaTest>
+        <ts:instanceTest name="gyearmonth-tzcmp-i01i">
+            <ts:instanceDocument xlink:href="../arelleData/instance_invalid/gYearMonthTzCompare/gyearmonth-tzcmp-i01.xml"/>
+            <ts:expected validity="invalid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:instanceTest>
+    </ts:testGroup>
+
+    <ts:testGroup name="gyearmonth-mixedtz-v01" version="1.1">
+        <ts:annotation>
+            <ts:documentation>Valid: non-timezoned instance vs timezoned minInclusive bound.</ts:documentation>
+        </ts:annotation>
+        <ts:documentationReference xlink:href="http://www.w3.org/TR/xmlschema11-2/#gYearMonth"/>
+        <ts:documentationReference xlink:href="../common/XSD1_1TestCategories.xml#xsd1_1-DateTimeTypes"/>
+        <ts:schemaTest name="gyearmonth-mixedtz-v01s">
+            <ts:schemaDocument xlink:href="../arelleData/valid/gYearMonthMixedTz/gyearmonth-mixedtz-v01.xsd"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:schemaTest>
+        <ts:instanceTest name="gyearmonth-mixedtz-v01i">
+            <ts:instanceDocument xlink:href="../arelleData/valid/gYearMonthMixedTz/gyearmonth-mixedtz-v01.xml"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:instanceTest>
+    </ts:testGroup>
+
+    <ts:testGroup name="gyearmonth-mixedtz-i01" version="1.1">
+        <ts:annotation>
+            <ts:documentation>Invalid: incomparable non-timezoned instance vs timezoned bound.</ts:documentation>
+        </ts:annotation>
+        <ts:documentationReference xlink:href="http://www.w3.org/TR/xmlschema11-2/#gYearMonth"/>
+        <ts:documentationReference xlink:href="../common/XSD1_1TestCategories.xml#xsd1_1-DateTimeTypes"/>
+        <ts:schemaTest name="gyearmonth-mixedtz-i01s">
+            <ts:schemaDocument xlink:href="../arelleData/instance_invalid/gYearMonthMixedTz/gyearmonth-mixedtz-i01.xsd"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:schemaTest>
+        <ts:instanceTest name="gyearmonth-mixedtz-i01i">
+            <ts:instanceDocument xlink:href="../arelleData/instance_invalid/gYearMonthMixedTz/gyearmonth-mixedtz-i01.xml"/>
+            <ts:expected validity="invalid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:instanceTest>
+    </ts:testGroup>
+
+    <ts:testGroup name="gyearmonth-mixedtz-i02" version="1.1">
+        <ts:annotation>
+            <ts:documentation>Invalid: timezoned instance vs non-timezoned minInclusive bound.</ts:documentation>
+        </ts:annotation>
+        <ts:documentationReference xlink:href="http://www.w3.org/TR/xmlschema11-2/#gYearMonth"/>
+        <ts:documentationReference xlink:href="../common/XSD1_1TestCategories.xml#xsd1_1-DateTimeTypes"/>
+        <ts:schemaTest name="gyearmonth-mixedtz-i02s">
+            <ts:schemaDocument xlink:href="../arelleData/instance_invalid/gYearMonthMixedTz/gyearmonth-mixedtz-i02.xsd"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:schemaTest>
+        <ts:instanceTest name="gyearmonth-mixedtz-i02i">
+            <ts:instanceDocument xlink:href="../arelleData/instance_invalid/gYearMonthMixedTz/gyearmonth-mixedtz-i02.xml"/>
+            <ts:expected validity="invalid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:instanceTest>
+    </ts:testGroup>
+
+    <ts:testGroup name="gyear-tzcmp-v01" version="1.1">
+        <ts:annotation>
+            <ts:documentation>Valid: timezoned gYear comparison (IBM d3_3_12v01 mirror).</ts:documentation>
+        </ts:annotation>
+        <ts:documentationReference xlink:href="http://www.w3.org/TR/xmlschema11-2/#gYear"/>
+        <ts:documentationReference xlink:href="../common/XSD1_1TestCategories.xml#xsd1_1-DateTimeTypes"/>
+        <ts:schemaTest name="gyear-tzcmp-v01s">
+            <ts:schemaDocument xlink:href="../arelleData/valid/gYearTzCompare/gyear-tzcmp-v01.xsd"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:schemaTest>
+        <ts:instanceTest name="gyear-tzcmp-v01i">
+            <ts:instanceDocument xlink:href="../arelleData/valid/gYearTzCompare/gyear-tzcmp-v01.xml"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:instanceTest>
+    </ts:testGroup>
+
+    <ts:testGroup name="gyear-tzcmp-i01" version="1.1">
+        <ts:annotation>
+            <ts:documentation>Invalid: timezoned gYear comparison.</ts:documentation>
+        </ts:annotation>
+        <ts:documentationReference xlink:href="http://www.w3.org/TR/xmlschema11-2/#gYear"/>
+        <ts:documentationReference xlink:href="../common/XSD1_1TestCategories.xml#xsd1_1-DateTimeTypes"/>
+        <ts:schemaTest name="gyear-tzcmp-i01s">
+            <ts:schemaDocument xlink:href="../arelleData/instance_invalid/gYearTzCompare/gyear-tzcmp-i01.xsd"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:schemaTest>
+        <ts:instanceTest name="gyear-tzcmp-i01i">
+            <ts:instanceDocument xlink:href="../arelleData/instance_invalid/gYearTzCompare/gyear-tzcmp-i01.xml"/>
+            <ts:expected validity="invalid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:instanceTest>
+    </ts:testGroup>
+
+    <ts:testGroup name="gyear-mixedtz-v01" version="1.1">
+        <ts:annotation>
+            <ts:documentation>Valid: non-timezoned instance vs timezoned minInclusive bound.</ts:documentation>
+        </ts:annotation>
+        <ts:documentationReference xlink:href="http://www.w3.org/TR/xmlschema11-2/#gYear"/>
+        <ts:documentationReference xlink:href="../common/XSD1_1TestCategories.xml#xsd1_1-DateTimeTypes"/>
+        <ts:schemaTest name="gyear-mixedtz-v01s">
+            <ts:schemaDocument xlink:href="../arelleData/valid/gYearMixedTz/gyear-mixedtz-v01.xsd"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:schemaTest>
+        <ts:instanceTest name="gyear-mixedtz-v01i">
+            <ts:instanceDocument xlink:href="../arelleData/valid/gYearMixedTz/gyear-mixedtz-v01.xml"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:instanceTest>
+    </ts:testGroup>
+
+    <ts:testGroup name="gyear-mixedtz-i01" version="1.1">
+        <ts:annotation>
+            <ts:documentation>Invalid: incomparable non-timezoned instance vs timezoned bound.</ts:documentation>
+        </ts:annotation>
+        <ts:documentationReference xlink:href="http://www.w3.org/TR/xmlschema11-2/#gYear"/>
+        <ts:documentationReference xlink:href="../common/XSD1_1TestCategories.xml#xsd1_1-DateTimeTypes"/>
+        <ts:schemaTest name="gyear-mixedtz-i01s">
+            <ts:schemaDocument xlink:href="../arelleData/instance_invalid/gYearMixedTz/gyear-mixedtz-i01.xsd"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:schemaTest>
+        <ts:instanceTest name="gyear-mixedtz-i01i">
+            <ts:instanceDocument xlink:href="../arelleData/instance_invalid/gYearMixedTz/gyear-mixedtz-i01.xml"/>
+            <ts:expected validity="invalid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:instanceTest>
+    </ts:testGroup>
+
+    <ts:testGroup name="gyear-mixedtz-i02" version="1.1">
+        <ts:annotation>
+            <ts:documentation>Invalid: timezoned instance vs non-timezoned minInclusive bound.</ts:documentation>
+        </ts:annotation>
+        <ts:documentationReference xlink:href="http://www.w3.org/TR/xmlschema11-2/#gYear"/>
+        <ts:documentationReference xlink:href="../common/XSD1_1TestCategories.xml#xsd1_1-DateTimeTypes"/>
+        <ts:schemaTest name="gyear-mixedtz-i02s">
+            <ts:schemaDocument xlink:href="../arelleData/instance_invalid/gYearMixedTz/gyear-mixedtz-i02.xsd"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:schemaTest>
+        <ts:instanceTest name="gyear-mixedtz-i02i">
+            <ts:instanceDocument xlink:href="../arelleData/instance_invalid/gYearMixedTz/gyear-mixedtz-i02.xml"/>
+            <ts:expected validity="invalid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:instanceTest>
+    </ts:testGroup>
+
+    <ts:testGroup name="gmonthday-tzcmp-v01" version="1.1">
+        <ts:annotation>
+            <ts:documentation>Valid: timezoned gMonthDay comparison (IBM d3_3_13v01 mirror).</ts:documentation>
+        </ts:annotation>
+        <ts:documentationReference xlink:href="http://www.w3.org/TR/xmlschema11-2/#gMonthDay"/>
+        <ts:documentationReference xlink:href="../common/XSD1_1TestCategories.xml#xsd1_1-DateTimeTypes"/>
+        <ts:schemaTest name="gmonthday-tzcmp-v01s">
+            <ts:schemaDocument xlink:href="../arelleData/valid/gMonthDayTzCompare/gmonthday-tzcmp-v01.xsd"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:schemaTest>
+        <ts:instanceTest name="gmonthday-tzcmp-v01i">
+            <ts:instanceDocument xlink:href="../arelleData/valid/gMonthDayTzCompare/gmonthday-tzcmp-v01.xml"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:instanceTest>
+    </ts:testGroup>
+
+    <ts:testGroup name="gmonthday-tzcmp-i01" version="1.1">
+        <ts:annotation>
+            <ts:documentation>Invalid: timezoned gMonthDay comparison.</ts:documentation>
+        </ts:annotation>
+        <ts:documentationReference xlink:href="http://www.w3.org/TR/xmlschema11-2/#gMonthDay"/>
+        <ts:documentationReference xlink:href="../common/XSD1_1TestCategories.xml#xsd1_1-DateTimeTypes"/>
+        <ts:schemaTest name="gmonthday-tzcmp-i01s">
+            <ts:schemaDocument xlink:href="../arelleData/instance_invalid/gMonthDayTzCompare/gmonthday-tzcmp-i01.xsd"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:schemaTest>
+        <ts:instanceTest name="gmonthday-tzcmp-i01i">
+            <ts:instanceDocument xlink:href="../arelleData/instance_invalid/gMonthDayTzCompare/gmonthday-tzcmp-i01.xml"/>
+            <ts:expected validity="invalid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:instanceTest>
+    </ts:testGroup>
+
+    <ts:testGroup name="gmonthday-mixedtz-v01" version="1.1">
+        <ts:annotation>
+            <ts:documentation>Valid: non-timezoned instance vs timezoned minInclusive bound.</ts:documentation>
+        </ts:annotation>
+        <ts:documentationReference xlink:href="http://www.w3.org/TR/xmlschema11-2/#gMonthDay"/>
+        <ts:documentationReference xlink:href="../common/XSD1_1TestCategories.xml#xsd1_1-DateTimeTypes"/>
+        <ts:schemaTest name="gmonthday-mixedtz-v01s">
+            <ts:schemaDocument xlink:href="../arelleData/valid/gMonthDayMixedTz/gmonthday-mixedtz-v01.xsd"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:schemaTest>
+        <ts:instanceTest name="gmonthday-mixedtz-v01i">
+            <ts:instanceDocument xlink:href="../arelleData/valid/gMonthDayMixedTz/gmonthday-mixedtz-v01.xml"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:instanceTest>
+    </ts:testGroup>
+
+    <ts:testGroup name="gmonthday-mixedtz-i01" version="1.1">
+        <ts:annotation>
+            <ts:documentation>Invalid: incomparable non-timezoned instance vs timezoned bound.</ts:documentation>
+        </ts:annotation>
+        <ts:documentationReference xlink:href="http://www.w3.org/TR/xmlschema11-2/#gMonthDay"/>
+        <ts:documentationReference xlink:href="../common/XSD1_1TestCategories.xml#xsd1_1-DateTimeTypes"/>
+        <ts:schemaTest name="gmonthday-mixedtz-i01s">
+            <ts:schemaDocument xlink:href="../arelleData/instance_invalid/gMonthDayMixedTz/gmonthday-mixedtz-i01.xsd"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:schemaTest>
+        <ts:instanceTest name="gmonthday-mixedtz-i01i">
+            <ts:instanceDocument xlink:href="../arelleData/instance_invalid/gMonthDayMixedTz/gmonthday-mixedtz-i01.xml"/>
+            <ts:expected validity="invalid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:instanceTest>
+    </ts:testGroup>
+
+    <ts:testGroup name="gmonthday-mixedtz-i02" version="1.1">
+        <ts:annotation>
+            <ts:documentation>Invalid: timezoned instance vs non-timezoned minInclusive bound.</ts:documentation>
+        </ts:annotation>
+        <ts:documentationReference xlink:href="http://www.w3.org/TR/xmlschema11-2/#gMonthDay"/>
+        <ts:documentationReference xlink:href="../common/XSD1_1TestCategories.xml#xsd1_1-DateTimeTypes"/>
+        <ts:schemaTest name="gmonthday-mixedtz-i02s">
+            <ts:schemaDocument xlink:href="../arelleData/instance_invalid/gMonthDayMixedTz/gmonthday-mixedtz-i02.xsd"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:schemaTest>
+        <ts:instanceTest name="gmonthday-mixedtz-i02i">
+            <ts:instanceDocument xlink:href="../arelleData/instance_invalid/gMonthDayMixedTz/gmonthday-mixedtz-i02.xml"/>
+            <ts:expected validity="invalid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:instanceTest>
+    </ts:testGroup>
+
+    <ts:testGroup name="gmonth-tzcmp-v01" version="1.1">
+        <ts:annotation>
+            <ts:documentation>Valid: timezoned gMonth comparison across extreme timezones.</ts:documentation>
+        </ts:annotation>
+        <ts:documentationReference xlink:href="http://www.w3.org/TR/xmlschema11-2/#gMonth"/>
+        <ts:documentationReference xlink:href="../common/XSD1_1TestCategories.xml#xsd1_1-DateTimeTypes"/>
+        <ts:schemaTest name="gmonth-tzcmp-v01s">
+            <ts:schemaDocument xlink:href="../arelleData/valid/gMonthTzCompare/gmonth-tzcmp-v01.xsd"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:schemaTest>
+        <ts:instanceTest name="gmonth-tzcmp-v01i">
+            <ts:instanceDocument xlink:href="../arelleData/valid/gMonthTzCompare/gmonth-tzcmp-v01.xml"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:instanceTest>
+    </ts:testGroup>
+
+    <ts:testGroup name="gmonth-tzcmp-i01" version="1.1">
+        <ts:annotation>
+            <ts:documentation>Invalid: timezoned gMonth comparison.</ts:documentation>
+        </ts:annotation>
+        <ts:documentationReference xlink:href="http://www.w3.org/TR/xmlschema11-2/#gMonth"/>
+        <ts:documentationReference xlink:href="../common/XSD1_1TestCategories.xml#xsd1_1-DateTimeTypes"/>
+        <ts:schemaTest name="gmonth-tzcmp-i01s">
+            <ts:schemaDocument xlink:href="../arelleData/instance_invalid/gMonthTzCompare/gmonth-tzcmp-i01.xsd"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:schemaTest>
+        <ts:instanceTest name="gmonth-tzcmp-i01i">
+            <ts:instanceDocument xlink:href="../arelleData/instance_invalid/gMonthTzCompare/gmonth-tzcmp-i01.xml"/>
+            <ts:expected validity="invalid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:instanceTest>
+    </ts:testGroup>
+
+    <ts:testGroup name="gmonth-mixedtz-v01" version="1.1">
+        <ts:annotation>
+            <ts:documentation>Valid: non-timezoned instance vs timezoned minInclusive bound.</ts:documentation>
+        </ts:annotation>
+        <ts:documentationReference xlink:href="http://www.w3.org/TR/xmlschema11-2/#gMonth"/>
+        <ts:documentationReference xlink:href="../common/XSD1_1TestCategories.xml#xsd1_1-DateTimeTypes"/>
+        <ts:schemaTest name="gmonth-mixedtz-v01s">
+            <ts:schemaDocument xlink:href="../arelleData/valid/gMonthMixedTz/gmonth-mixedtz-v01.xsd"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:schemaTest>
+        <ts:instanceTest name="gmonth-mixedtz-v01i">
+            <ts:instanceDocument xlink:href="../arelleData/valid/gMonthMixedTz/gmonth-mixedtz-v01.xml"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:instanceTest>
+    </ts:testGroup>
+
+    <ts:testGroup name="gmonth-mixedtz-i01" version="1.1">
+        <ts:annotation>
+            <ts:documentation>Invalid: incomparable non-timezoned instance vs timezoned bound.</ts:documentation>
+        </ts:annotation>
+        <ts:documentationReference xlink:href="http://www.w3.org/TR/xmlschema11-2/#gMonth"/>
+        <ts:documentationReference xlink:href="../common/XSD1_1TestCategories.xml#xsd1_1-DateTimeTypes"/>
+        <ts:schemaTest name="gmonth-mixedtz-i01s">
+            <ts:schemaDocument xlink:href="../arelleData/instance_invalid/gMonthMixedTz/gmonth-mixedtz-i01.xsd"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:schemaTest>
+        <ts:instanceTest name="gmonth-mixedtz-i01i">
+            <ts:instanceDocument xlink:href="../arelleData/instance_invalid/gMonthMixedTz/gmonth-mixedtz-i01.xml"/>
+            <ts:expected validity="invalid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:instanceTest>
+    </ts:testGroup>
+
+    <ts:testGroup name="gmonth-mixedtz-i02" version="1.1">
+        <ts:annotation>
+            <ts:documentation>Invalid: timezoned instance vs non-timezoned minInclusive bound.</ts:documentation>
+        </ts:annotation>
+        <ts:documentationReference xlink:href="http://www.w3.org/TR/xmlschema11-2/#gMonth"/>
+        <ts:documentationReference xlink:href="../common/XSD1_1TestCategories.xml#xsd1_1-DateTimeTypes"/>
+        <ts:schemaTest name="gmonth-mixedtz-i02s">
+            <ts:schemaDocument xlink:href="../arelleData/instance_invalid/gMonthMixedTz/gmonth-mixedtz-i02.xsd"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:schemaTest>
+        <ts:instanceTest name="gmonth-mixedtz-i02i">
+            <ts:instanceDocument xlink:href="../arelleData/instance_invalid/gMonthMixedTz/gmonth-mixedtz-i02.xml"/>
+            <ts:expected validity="invalid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:instanceTest>
+    </ts:testGroup>
+
+    <ts:testGroup name="gday-tzcmp-v01" version="1.1">
+        <ts:annotation>
+            <ts:documentation>Valid: timezoned gDay comparison (IBM d3_3_14v01 mirror).</ts:documentation>
+        </ts:annotation>
+        <ts:documentationReference xlink:href="http://www.w3.org/TR/xmlschema11-2/#gDay"/>
+        <ts:documentationReference xlink:href="../common/XSD1_1TestCategories.xml#xsd1_1-DateTimeTypes"/>
+        <ts:schemaTest name="gday-tzcmp-v01s">
+            <ts:schemaDocument xlink:href="../arelleData/valid/gDayTzCompare/gday-tzcmp-v01.xsd"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:schemaTest>
+        <ts:instanceTest name="gday-tzcmp-v01i">
+            <ts:instanceDocument xlink:href="../arelleData/valid/gDayTzCompare/gday-tzcmp-v01.xml"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:instanceTest>
+    </ts:testGroup>
+
+    <ts:testGroup name="gday-tzcmp-i01" version="1.1">
+        <ts:annotation>
+            <ts:documentation>Invalid: timezoned gDay comparison (IBM d3_3_14v01 counterpart).</ts:documentation>
+        </ts:annotation>
+        <ts:documentationReference xlink:href="http://www.w3.org/TR/xmlschema11-2/#gDay"/>
+        <ts:documentationReference xlink:href="../common/XSD1_1TestCategories.xml#xsd1_1-DateTimeTypes"/>
+        <ts:schemaTest name="gday-tzcmp-i01s">
+            <ts:schemaDocument xlink:href="../arelleData/instance_invalid/gDayTzCompare/gday-tzcmp-i01.xsd"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:schemaTest>
+        <ts:instanceTest name="gday-tzcmp-i01i">
+            <ts:instanceDocument xlink:href="../arelleData/instance_invalid/gDayTzCompare/gday-tzcmp-i01.xml"/>
+            <ts:expected validity="invalid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:instanceTest>
+    </ts:testGroup>
+
+    <ts:testGroup name="gday-mixedtz-v01" version="1.1">
+        <ts:annotation>
+            <ts:documentation>Valid: non-timezoned instance vs timezoned minInclusive bound.</ts:documentation>
+        </ts:annotation>
+        <ts:documentationReference xlink:href="http://www.w3.org/TR/xmlschema11-2/#gDay"/>
+        <ts:documentationReference xlink:href="../common/XSD1_1TestCategories.xml#xsd1_1-DateTimeTypes"/>
+        <ts:schemaTest name="gday-mixedtz-v01s">
+            <ts:schemaDocument xlink:href="../arelleData/valid/gDayMixedTz/gday-mixedtz-v01.xsd"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:schemaTest>
+        <ts:instanceTest name="gday-mixedtz-v01i">
+            <ts:instanceDocument xlink:href="../arelleData/valid/gDayMixedTz/gday-mixedtz-v01.xml"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:instanceTest>
+    </ts:testGroup>
+
+    <ts:testGroup name="gday-mixedtz-i01" version="1.1">
+        <ts:annotation>
+            <ts:documentation>Invalid: incomparable non-timezoned instance vs timezoned bound.</ts:documentation>
+        </ts:annotation>
+        <ts:documentationReference xlink:href="http://www.w3.org/TR/xmlschema11-2/#gDay"/>
+        <ts:documentationReference xlink:href="../common/XSD1_1TestCategories.xml#xsd1_1-DateTimeTypes"/>
+        <ts:schemaTest name="gday-mixedtz-i01s">
+            <ts:schemaDocument xlink:href="../arelleData/instance_invalid/gDayMixedTz/gday-mixedtz-i01.xsd"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:schemaTest>
+        <ts:instanceTest name="gday-mixedtz-i01i">
+            <ts:instanceDocument xlink:href="../arelleData/instance_invalid/gDayMixedTz/gday-mixedtz-i01.xml"/>
+            <ts:expected validity="invalid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:instanceTest>
+    </ts:testGroup>
+
+    <ts:testGroup name="gday-mixedtz-i02" version="1.1">
+        <ts:annotation>
+            <ts:documentation>Invalid: timezoned instance vs non-timezoned minInclusive bound.</ts:documentation>
+        </ts:annotation>
+        <ts:documentationReference xlink:href="http://www.w3.org/TR/xmlschema11-2/#gDay"/>
+        <ts:documentationReference xlink:href="../common/XSD1_1TestCategories.xml#xsd1_1-DateTimeTypes"/>
+        <ts:schemaTest name="gday-mixedtz-i02s">
+            <ts:schemaDocument xlink:href="../arelleData/instance_invalid/gDayMixedTz/gday-mixedtz-i02.xsd"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:schemaTest>
+        <ts:instanceTest name="gday-mixedtz-i02i">
+            <ts:instanceDocument xlink:href="../arelleData/instance_invalid/gDayMixedTz/gday-mixedtz-i02.xml"/>
+            <ts:expected validity="invalid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:instanceTest>
+    </ts:testGroup>
+
+    <ts:testGroup name="date-tzcmp-i01" version="1.1">
+        <ts:annotation>
+            <ts:documentation>Invalid: timezoned date comparison (IBM d3_3_10v01 counterpart).</ts:documentation>
+        </ts:annotation>
+        <ts:documentationReference xlink:href="http://www.w3.org/TR/xmlschema11-2/#date"/>
+        <ts:documentationReference xlink:href="../common/XSD1_1TestCategories.xml#xsd1_1-DateTimeTypes"/>
+        <ts:schemaTest name="date-tzcmp-i01s">
+            <ts:schemaDocument xlink:href="../arelleData/instance_invalid/dateTzCompare/date-tzcmp-i01.xsd"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:schemaTest>
+        <ts:instanceTest name="date-tzcmp-i01i">
+            <ts:instanceDocument xlink:href="../arelleData/instance_invalid/dateTzCompare/date-tzcmp-i01.xml"/>
+            <ts:expected validity="invalid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:instanceTest>
+    </ts:testGroup>
+
+    <ts:testGroup name="date-mixedtz-v01" version="1.1">
+        <ts:annotation>
+            <ts:documentation>Valid: non-timezoned 2000-12-12 satisfies minInclusive 2000-12-12 at +13:00.</ts:documentation>
+        </ts:annotation>
+        <ts:documentationReference xlink:href="http://www.w3.org/TR/xmlschema11-2/#date"/>
+        <ts:documentationReference xlink:href="../common/XSD1_1TestCategories.xml#xsd1_1-DateTimeTypes"/>
+        <ts:schemaTest name="date-mixedtz-v01s">
+            <ts:schemaDocument xlink:href="../arelleData/valid/dateMixedTz/date-mixedtz-v01.xsd"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:schemaTest>
+        <ts:instanceTest name="date-mixedtz-v01i">
+            <ts:instanceDocument xlink:href="../arelleData/valid/dateMixedTz/date-mixedtz-v01.xml"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:instanceTest>
+    </ts:testGroup>
+
+    <ts:testGroup name="date-mixedtz-i01" version="1.1">
+        <ts:annotation>
+            <ts:documentation>Invalid: timezoned 2000-12-11 at +13:00 fails minInclusive non-timezoned 2000-12-12.</ts:documentation>
+        </ts:annotation>
+        <ts:documentationReference xlink:href="http://www.w3.org/TR/xmlschema11-2/#date"/>
+        <ts:documentationReference xlink:href="../common/XSD1_1TestCategories.xml#xsd1_1-DateTimeTypes"/>
+        <ts:schemaTest name="date-mixedtz-i01s">
+            <ts:schemaDocument xlink:href="../arelleData/instance_invalid/dateMixedTz/date-mixedtz-i01.xsd"/>
+            <ts:expected validity="valid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:schemaTest>
+        <ts:instanceTest name="date-mixedtz-i01i">
+            <ts:instanceDocument xlink:href="../arelleData/instance_invalid/dateMixedTz/date-mixedtz-i01.xml"/>
+            <ts:expected validity="invalid"/>
+            <ts:current date="2026-07-15" status="custom"/>
+        </ts:instanceTest>
+    </ts:testGroup>
+
+</ts:testSet>

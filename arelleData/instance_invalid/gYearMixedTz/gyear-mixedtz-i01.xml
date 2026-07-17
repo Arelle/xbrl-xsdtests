@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dv:root xmlns:dv="http://xstest-tns/arelle_gyear_gyear_mixedtz_i01"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xstest-tns/arelle_gyear_gyear_mixedtz_i01
+	gyear-mixedtz-i01.xsd">
+	
+	<elDate>2000</elDate>
+
+</dv:root>
+
+<!-- 
+	Test Case Type: Instance Invalid test (Datatypes section 3.3.11 / D.2.1)
+	Base Type     : gYear
+	Description   : Non-timezoned 2000 is incomparable with minInclusive 2000 at +13:00.
+-->

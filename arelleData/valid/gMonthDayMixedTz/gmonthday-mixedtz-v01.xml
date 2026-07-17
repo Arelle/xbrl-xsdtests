@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dv:root xmlns:dv="http://xstest-tns/arelle_gmonthday_gmonthday_mixedtz_v01"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xstest-tns/arelle_gmonthday_gmonthday_mixedtz_v01
+	gmonthday-mixedtz-v01.xsd">
+	
+	<elDate>--12-13</elDate>
+
+</dv:root>
+
+<!-- 
+	Test Case Type: Schema Valid test (Datatypes section 3.3.12 / D.2.1)
+	Base Type     : gMonthDay
+	Description   : Non-timezoned month-day 12-13 satisfies minInclusive 12-12 at +13:00.
+-->

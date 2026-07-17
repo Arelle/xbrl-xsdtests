@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dv:root xmlns:dv="http://xstest-tns/arelle_gyear_gyear_tzcmp_i01"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xstest-tns/arelle_gyear_gyear_tzcmp_i01
+	gyear-tzcmp-i01.xsd">
+	
+	<elDate>1999+11:00</elDate>
+
+</dv:root>
+
+<!-- 
+	Test Case Type: Instance Invalid test (Datatypes section 3.3.11 / D.2.1)
+	Base Type     : gYear
+	Description   : Timezoned 1999 at +11:00 fails minInclusive 2000 at +13:00.
+-->

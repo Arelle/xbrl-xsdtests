@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://xstest-tns/arelle_gday_gday_mixedtz_i02"
+	xmlns:sv="http://xstest-tns/arelle_gday_gday_mixedtz_i02">
+
+<!-- 
+	Test Case Type: Schema for gDay timezone comparison (gday-mixedtz-i02)
+	Base Type     : gDay
+-->
+
+<simpleType name="gMin">
+	<restriction base="gDay">
+		<minInclusive value="---16"/>
+	</restriction>
+</simpleType>
+
+<element name="root">
+	<complexType>
+		<sequence>
+			<element name="elDate" type="sv:gMin" minOccurs="1" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+</element>
+
+</schema>

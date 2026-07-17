@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dv:root xmlns:dv="http://xstest-tns/arelle_gyear_gyear_tzcmp_v01"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xstest-tns/arelle_gyear_gyear_tzcmp_v01
+	gyear-tzcmp-v01.xsd">
+	
+	<elDate>2000+11:00</elDate>
+
+</dv:root>
+
+<!-- 
+	Test Case Type: Schema Valid test (Datatypes section 3.3.11 / D.2.1)
+	Base Type     : gYear
+	Description   : Timezoned year 2000 at +11:00 satisfies minInclusive 2000 at +13:00 (IBM d3_3_12v01).
+-->

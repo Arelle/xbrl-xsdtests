@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dv:root xmlns:dv="http://xstest-tns/arelle_gmonth_gmonth_mixedtz_i02"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xstest-tns/arelle_gmonth_gmonth_mixedtz_i02
+	gmonth-mixedtz-i02.xsd">
+	
+	<elDate>--11+13:00</elDate>
+
+</dv:root>
+
+<!-- 
+	Test Case Type: Instance Invalid test (Datatypes section 3.3.14 / D.2.1)
+	Base Type     : gMonth
+	Description   : Timezoned month 11 at +13:00 fails minInclusive non-timezoned month 12.
+-->

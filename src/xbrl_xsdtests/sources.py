@@ -23,6 +23,7 @@ DEFAULT_ROOT = Path.cwd()
 
 # (repo-relative member path, contributor) — XSD 1.0 datatype sources only.
 _IN_SCOPE: tuple[tuple[str, str], ...] = (
+    ("arelleMeta/gregorianTimezoneCompare.testSet", "Arelle"),
     ("nistMeta/NISTXMLSchemaDatatypes.testSet", "NIST"),
     ("msMeta/Regex_w3c.xml", "Microsoft"),
     ("msMeta/DataTypes_w3c.xml", "Microsoft"),

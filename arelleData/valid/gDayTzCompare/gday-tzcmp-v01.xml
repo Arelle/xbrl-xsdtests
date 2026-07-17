@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dv:root xmlns:dv="http://xstest-tns/arelle_gday_gday_tzcmp_v01"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xstest-tns/arelle_gday_gday_tzcmp_v01
+	gday-tzcmp-v01.xsd">
+	
+	<elDate>---15-13:00</elDate>
+
+</dv:root>
+
+<!-- 
+	Test Case Type: Schema Valid test (Datatypes section 3.3.13 / D.2.1)
+	Base Type     : gDay
+	Description   : Timezoned day 15 at -13:00 satisfies minInclusive day 16 at +13:00 (IBM d3_3_14v01).
+-->

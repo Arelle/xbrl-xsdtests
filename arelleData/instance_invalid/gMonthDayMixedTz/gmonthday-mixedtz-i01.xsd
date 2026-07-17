@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://xstest-tns/arelle_gmonthday_gmonthday_mixedtz_i01"
+	xmlns:sv="http://xstest-tns/arelle_gmonthday_gmonthday_mixedtz_i01">
+
+<!-- 
+	Test Case Type: Schema for gMonthDay timezone comparison (gmonthday-mixedtz-i01)
+	Base Type     : gMonthDay
+-->
+
+<simpleType name="gMin">
+	<restriction base="gMonthDay">
+		<minInclusive value="--12-12+13:00"/>
+	</restriction>
+</simpleType>
+
+<element name="root">
+	<complexType>
+		<sequence>
+			<element name="elDate" type="sv:gMin" minOccurs="1" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+</element>
+
+</schema>

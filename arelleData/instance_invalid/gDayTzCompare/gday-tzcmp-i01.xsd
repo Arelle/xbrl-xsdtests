@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://xstest-tns/arelle_gday_tzcmp_i01"
+	xmlns:sv="http://xstest-tns/arelle_gday_tzcmp_i01">
+	
+<!-- 
+	Test Case Type: Instance Invalid test (Datatypes section 3.3.13 / D.2.1)
+	Base Type     : gDay
+	Description   : Comparing timezoned gDay values: day 14 at timezone -13:00 is
+			    less than minInclusive day 16 at timezone +13:00 (counterpart to
+			    IBM d3_3_14v01).
+-->
+
+<simpleType name="gMin">
+	<restriction base="gDay">
+		<minInclusive value="---16+13:00"/>
+	</restriction>
+</simpleType>
+
+<element name="root">
+	<complexType>
+		<sequence>
+			<element name="elDate" type="sv:gMin" minOccurs="1" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+</element>
+
+</schema>

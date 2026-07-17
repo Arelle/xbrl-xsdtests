@@ -859,6 +859,7 @@
       <xsd:enumeration value="queried"/>
       <xsd:enumeration value="disputed-test"/>
       <xsd:enumeration value="disputed-spec"/>
+      <xsd:enumeration value="custom"/>
     </xsd:restriction>
   </xsd:simpleType>
  

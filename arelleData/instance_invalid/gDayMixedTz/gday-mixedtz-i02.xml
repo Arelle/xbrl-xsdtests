@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dv:root xmlns:dv="http://xstest-tns/arelle_gday_gday_mixedtz_i02"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xstest-tns/arelle_gday_gday_mixedtz_i02
+	gday-mixedtz-i02.xsd">
+	
+	<elDate>---15+13:00</elDate>
+
+</dv:root>
+
+<!-- 
+	Test Case Type: Instance Invalid test (Datatypes section 3.3.13 / D.2.1)
+	Base Type     : gDay
+	Description   : Timezoned day 15 at +13:00 fails minInclusive non-timezoned day 16.
+-->

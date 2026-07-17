@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dv:root xmlns:dv="http://xstest-tns/arelle_gday_mixedtz_i01"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xstest-tns/arelle_gday_mixedtz_i01
+	gday-mixedtz-i01.xsd">
+	
+	<elDate>---16</elDate>
+
+</dv:root>
+
+<!-- 
+	Test Case Type: Instance Invalid test (Datatypes section 3.3.13 / D.2.1)
+	Base Type     : gDay
+	Description   : Non-timezoned day 16 is incomparable with minInclusive day 16 at
+			    timezone +13:00, so the comparison is indeterminate and rejected.
+-->

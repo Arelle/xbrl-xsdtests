@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dv:root xmlns:dv="http://xstest-tns/arelle_gday_mixedtz_v01"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xstest-tns/arelle_gday_mixedtz_v01
+	gday-mixedtz-v01.xsd">
+	
+	<elDate>---17</elDate>
+
+</dv:root>
+
+<!-- 
+	Test Case Type: Schema Valid test (Datatypes section 3.3.13 / D.2.1)
+	Base Type     : gDay
+	Description   : Non-timezoned day 17 satisfies minInclusive day 16 at timezone
+			    +13:00 because every admissible timezone for day 17 places it
+			    after the bound.
+-->

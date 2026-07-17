@@ -21,6 +21,8 @@ of 2004.</ts:documentation>
 by Saxonica Limited during 2010.</ts:documentation>
   <ts:documentation>The XSD 1.1 tests in the ibmMeta and ibmData directories were submitted
 by IBM during 2011.</ts:documentation>
+  <ts:documentation>Additional XSD 1.1 tests in the arelleMeta and arelleData directories were
+submitted by Arelle to cover gaps in timezone-aware gregorian date ordering.</ts:documentation>
   <ts:documentation>The XSD 1.1 tests in the oracleMeta and oracleData directories were submitted
 by Oracle during 2011.</ts:documentation>
   <ts:documentation>The IBM and Saxonica tests for the precisionDecimal data type
@@ -122,5 +124,6 @@ by Oracle during 2011.</ts:documentation>
  <ts:testSetRef xlink:href="ibmMeta/xpathDefaultNSonKeyKeyRefUnique.testSet"/>
  <ts:testSetRef xlink:href="ibmMeta/xsImportReference.testSet"/> 
  <ts:testSetRef xlink:href="ibmMeta/yearMonthDuration.testSet"/>
+ <ts:testSetRef xlink:href="arelleMeta/gregorianTimezoneCompare.testSet"/>
   
 </ts:testSuite>
