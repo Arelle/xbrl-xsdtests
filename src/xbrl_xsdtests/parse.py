@@ -37,6 +37,8 @@ XSI_NS = "http://www.w3.org/2001/XMLSchema-instance"
 _NIL_TRUE = frozenset({"true", "1"})
 
 _VALIDITIES = frozenset({"valid", "invalid"})
+# Fallback for the (rare) instanceTest with no <current status="..."/> sibling.
+_UNKNOWN_STATUS = "unknown"
 # Facets whose order is semantically relevant and which are kept verbatim/ordered.
 _ENUMERATION = "enumeration"
 _PATTERN = "pattern"
@@ -148,7 +150,15 @@ class TestSetParser:
             name=instance_test.get("name") or "",
             instance_member=_resolve_member(source.member, href),
             validity=validity,  # type: ignore[arg-type]
+            status=self._status(instance_test),
         )
+
+    @staticmethod
+    def _status(instance_test: etree.Element) -> str:
+        """XSTS review status from ``<current status="..."/>``, else ``"unknown"``."""
+        current = instance_test.find(f"{{{TS_NS}}}current")
+        status = current.get("status") if current is not None else None
+        return status or _UNKNOWN_STATUS
 
 
 class SchemaExtractor:
@@ -203,16 +213,19 @@ class SchemaExtractor:
 
         Returns ``(elementName, simpleType)`` — the element's ``name`` is the
         localName of the value-bearing element in the instance (the instance root
-        for root-typed sources like NIST, or a nested probe like Microsoft's
-        ``<simpleTest>``). The name is ``None`` for an anonymous/ref-only element.
+        for root-typed sources like NIST, a top-level probe like Microsoft's
+        ``<simpleTest>``, or a nested leaf like IBM/Arelle ``<elDate>`` inside a
+        wrapper ``<root>`` complexType). Ref-only elements (no ``name``) are skipped.
         """
-        for element in root.findall(f"{{{XSD_NS}}}element"):
-            type_attr = element.get("type")
-            if not type_attr:
+        for element in root.iter(f"{{{XSD_NS}}}element"):
+            name = element.get("name")
+            if not name:
                 continue
-            _uri, local = _resolve_qname(element, type_attr)
-            if local in simple_types:
-                return element.get("name"), simple_types[local]
+            identity = self._element_identity(element, simple_types)
+            if identity is None or not identity.startswith("local:"):
+                continue
+            local_name = identity.split(":", 1)[1]
+            return name, simple_types[local_name]
         return None
 
     @staticmethod

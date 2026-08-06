@@ -41,6 +41,11 @@ class InstanceTestRef:
     name: str               # unique XSTS instance name -> variation id
     instance_member: str    # resolved repo-relative path of the .xml
     validity: Literal["valid", "invalid"]
+    # XSTS review status from the instanceTest's <current status="..."/> (e.g.
+    # "accepted", "stable", "queried", "disputed-spec", "disputed-test", "custom",
+    # "submitted"); "unknown" when the source instanceTest carries no <current>.
+    # Drives the top-level output directory (see emit.status_dir).
+    status: str = "unknown"
 
 
 @dataclass(frozen=True)

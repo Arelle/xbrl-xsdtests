@@ -107,9 +107,16 @@ output/                         (gitignored)
     index.xml                   native <testcases> index (written last)
     skip-manifest.json          skipped groups/instances + counts by reason
     taxonomies/gen-<key>.xsd    one re-based taxonomy per unique type key
-    <category>/<key>-testcase.xml
-    <category>/<key>/<variation>.xbrl     one fact per tested-element occurrence
+    <status>/<category>/<key>-testcase.xml
+    <status>/<category>/<key>/<variation>.xbrl     one fact per tested-element occurrence
 ```
+
+`<status>` is the XSTS review status from the originating instanceTest's
+`<current status="..."/>` (e.g. `accepted`, `stable`, `queried`, `disputed-spec`,
+`disputed-test`, `custom`, `submitted`; `unknown` when absent) and forms the
+output's top-level directory. Instances of the same type-key facet signature but
+different statuses are split into separate testcase files, so every testcase
+lives wholly beneath its own status directory.
 
 Expected results follow the native conformance format: `invalid` instances expect
 `<error>xmlSchema:valueError</error>`; `valid` instances expect an empty
